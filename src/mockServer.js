@@ -11,17 +11,17 @@ function mockServer() {
                 this.get("/books", () => {
                     return [
                         {
-                            title: "Harry Potter",
+                            title: "Harry Potter 1",
                             author: "J.K. Rowling",
                             year: "2001"
                         },
                         {
-                            title: "Harry Potter",
+                            title: "Harry Potter 2",
                             author: "J.K. Rowling",
                             year: "2002"
                         },
                         {
-                            title: "Harry Potter 2",
+                            title: "Harry Potter 3",
                             author: "J.K. Rowling",
                             year: "2003"
                         }
