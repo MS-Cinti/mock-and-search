@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
+import LoadingMask from "./components/LoadingMask";
+import Book from "./components/Book";
 
 function App() {
 
   const [loading, setLoading] = useState(false)
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState([]);
 
+  async function fetchBooks() {
 
-  const fetchBooks = async () => {
+    const response = await fetch("http://www.testdomain.com/v1/api/books");
+    const responseJSON = await response.json();
+  
+    console.log(responseJSON);
 
-    const resp = await fetch("http://www.testdomain.com/v1/api/books");
-    const respJSON = await resp.json();
-    console.log(respJSON)
+    setBooks(responseJSON);
+    setLoading(false);
 
-    setBooks(respJSON)
-    setLoading(false)
   }
-
+  
   useEffect( 
     () => {
       setLoading(true)
@@ -26,8 +29,8 @@ function App() {
 
   return (
     <div className="App">
-      {loading ? "Betöltődés alatt" : 
-      books.map( book => <div>{book.title}{book.author}{book.year}</div>) }
+      {loading ? <LoadingMask /> : 
+      books.map( (book) => (<Book book={book}/> ))}
     </div>
   );
 }
