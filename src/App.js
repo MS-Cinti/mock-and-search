@@ -10,6 +10,7 @@ function App() {
   const [books, setBooks] = useState([])
   const [input, setInput] = useState("")
   const [sort, setSort] = useState("desc") 
+  const [input2, setInput2] = useState("") 
 
   async function fetchBooks() {
 
@@ -20,7 +21,6 @@ function App() {
 
     setBooks(responseJSON);
     setLoading(false);
-
   }
   
   useEffect( 
@@ -28,6 +28,13 @@ function App() {
       setLoading(true)
       fetchBooks()
     }, 
+    []
+  )
+
+  useEffect(
+    () =>{
+      console.log("run")
+    },
     []
   )
 
@@ -42,6 +49,7 @@ function App() {
       <>
         <Button variant="contained" onClick={sortBooks}>Sort</Button>
         <TextField id="outlined-basic" label="Outlined" variant="outlined" value={input} onChange={ ({target}) => {setInput(target.value)} }/>
+        <TextField id="outlined-basic" label="Outlined" variant="outlined" value={input2} onChange={ ({target}) => {setInput2(target.value)} }/>
         {books.map( ({title, author, year}) => (title.toLowerCase().includes(input.toLowerCase()) && <Book key={year} title={title} author={author} year={year} /> ))}
       </>
       }
