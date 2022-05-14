@@ -11,6 +11,7 @@ function App() {
   const [input, setInput] = useState("")
   const [sort, setSort] = useState("desc") 
   const [input2, setInput2] = useState("") 
+  const [counter, setCounter] = useState(0)
 
   async function fetchBooks() {
 
@@ -20,23 +21,36 @@ function App() {
     console.log(responseJSON);
 
     setBooks(responseJSON);
-    setLoading(false);
+
+    /* setLoading(false) */ //ha fetchelés után akarom a setLoading(false)-t akkor ide kell rakni
   }
-  
-  useEffect( 
+
+/*   useEffect(  
     () => {
       setLoading(true)
       fetchBooks()
     }, 
     []
-  )
+  ) */
 
-  useEffect(
+  useEffect(() => { //5 mp-ig kiírja hogy Betöltődés alatt, majd utána lefetcheli az adatokat
+    const interval = setInterval( () => {
+      setLoading(false)
+      console.log("false")
+      clearInterval(interval)
+    }, 5000);
+    setLoading(true)
+    fetchBooks()
+    }, 
+    []
+  );
+
+  /* useEffect(
     () =>{
       console.log("run")
     },
     []
-  )
+  ) */
 
   function sortBooks() {
     setBooks([...books.sort( (a, b) => sort === "desc" ? b.year - a.year : a.year - b.year)])
